@@ -122,10 +122,8 @@ var app = builder.Build();
 app.UseMiddleware<GlobalExceptionMiddleware>();
 
 // 2° — Swagger (fora do if para funcionar em todos os ambientes)
-app.UseSwagger(options =>
-{
-    options.OpenApiVersion = Microsoft.OpenApi.OpenApiSpecVersion.OpenApi3_0;
-}); app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 // 3° — CORS (antes de auth, senão o preflight falha)
 app.UseCors("PermitirTodos");
