@@ -19,7 +19,7 @@ services:
       Jwt__SenhaHash: "$2a$11$6wnmj/lfjSRpblmdg/5VQeIkFfzoKvTO/bXk2fZOHXN7OOo9o2pQK"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.watch-citel-router.rule=Host(`watch.citel.app`)"
+      - "traefik.http.routers.watch-citel-router.rule=Host(`watch.citel.app`) && PathPrefix(`/api`)"
       - "traefik.http.routers.watch-citel-router.entrypoints=websecure"
       - "traefik.http.routers.watch-citel-router.tls=true"
       - "traefik.http.routers.watch-citel-router.tls.certresolver=tlschallenge"
