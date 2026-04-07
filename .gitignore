@@ -1,0 +1,25 @@
+# Build outputs
+**/bin/
+**/obj/
+**/publish/
+
+# Visual Studio
+*.user
+*.suo
+.vs/
+*.userprefs
+
+# Rider
+.idea/
+
+# wwwroot (gerado pelo build do React - não versionar)
+**/wwwroot/
+
+# Secrets / configurações locais (NÃO versionar)
+**/appsettings.Development.json
+
+# Docker
+# (Dockerfile e docker-compose.yml SÃO versionados)
+
+# Logs
+*.log

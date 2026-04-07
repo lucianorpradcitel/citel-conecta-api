@@ -1,0 +1,30 @@
+services:
+  watch-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: watch-citel-api
+    restart: unless-stopped
+    networks:
+      - network_traefik
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: "Server=replicacao.citelsoftware.com.br;Port=41757;Database=MONITORAMENTO_INTEGRACOES;User=gatilhos.chat;Password=$smU2>ddfBp)G95;"
+      Jwt__Secret: "citel-conecta-monitoramento-secret-2026"
+      Jwt__Issuer: "citel.conecta.api"
+      Jwt__Audience: "monint"
+      Jwt__ValidadeHoras: "24"
+      Jwt__Usuario: "monint"
+      Jwt__SenhaHash: "$2a$11$6wnmj/lfjSRpblmdg/5VQeIkFfzoKvTO/bXk2fZOHXN7OOo9o2pQK"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.watch-citel-router.rule=Host(`watch.citel.app`)"
+      - "traefik.http.routers.watch-citel-router.entrypoints=websecure"
+      - "traefik.http.routers.watch-citel-router.tls=true"
+      - "traefik.http.routers.watch-citel-router.tls.certresolver=tlschallenge"
+      - "traefik.http.services.watch-citel-service.loadbalancer.server.port=8080"
+
+networks:
+  network_traefik:
+    external: true
