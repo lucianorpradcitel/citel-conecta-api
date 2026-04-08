@@ -51,11 +51,9 @@ public class AppDbContext : DbContext
         {
             entity.ToTable("HRTBEN");
             entity.Property(e => e.Id).HasColumnName("HRT_CODPEN");
-            entity.Property(e => e.NomeWorkflow).HasColumnName("HRT_NOMWFL");
-            entity.Property(e => e.TipoEntidade).HasColumnName("HRT_TIPENT");
+            entity.Property(e => e.NomeWorkflow).HasColumnName("HRT_NOMWFL");            
             entity.Property(e => e.UltimaExecucao).HasColumnName("HRT_DHUEXE");
-            entity.Property(e => e.UltimoSucesso).HasColumnName("HRT_DHUSUC");
-            entity.Property(e => e.ItensProcessados).HasColumnName("HRT_QTDPRO");
+            entity.Property(e => e.UltimoSucesso).HasColumnName("HRT_DHUSUC");   
             entity.Property(e => e.CicloEsperadoSegundos).HasColumnName("HRT_CICSEG");
         });
     }
@@ -71,10 +69,9 @@ public class AppDbContext : DbContext
             entity.Property(e => e.Plataforma).HasColumnName($"{prefixo}_NOMPLA");
             entity.Property(e => e.DataRegistro).HasColumnName($"{prefixo}_DHUALT");
             entity.Property(e => e.Erro).HasColumnName($"{prefixo}_LOGERR");
-            entity.Property(e => e.CodigoEntidade).HasColumnName($"{prefixo}_CODENT");
+            entity.Property(e => e.CodigoExterno).HasColumnName($"{prefixo}_CODEXT");
             entity.Property(e => e.CodigoInterno).HasColumnName($"{prefixo}_CODPLA");
             entity.Property(e => e.NomeWorkflow).HasColumnName($"{prefixo}_NOMWFL");
-            entity.Property(e => e.TipoEntidade).HasColumnName($"{prefixo}_TIPENT");
         });
     }
 }

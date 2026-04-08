@@ -1,4 +1,4 @@
-using Citel.Conecta.Api.Dtos;
+﻿using Citel.Conecta.Api.Dtos;
 
 namespace Citel.Conecta.Api.Services
 {
@@ -12,7 +12,7 @@ namespace Citel.Conecta.Api.Services
             string? plataforma = null,
             string? nomeCliente = null,
             string? nomeWorkflow = null,
-            string? codigoEntidade = null,
+            string? codigoExterno = null,
             DateTime? dataInicio = null,
             DateTime? dataFim = null,
             int pagina = 1,

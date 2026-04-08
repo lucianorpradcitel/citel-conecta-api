@@ -23,8 +23,7 @@ namespace Citel.Conecta.Api.Services
             {
                 existente = new Heartbeat
                 {
-                    NomeWorkflow = request.NomeWorkflow,
-                    TipoEntidade = request.TipoEntidade,
+                    NomeWorkflow = request.NomeWorkflow,                    
                     CicloEsperadoSegundos = request.CicloEsperadoSegundos
                 };
                 _context.Heartbeats.Add(existente);
@@ -32,10 +31,8 @@ namespace Citel.Conecta.Api.Services
 
             existente.UltimaExecucao = DateTime.UtcNow;
             existente.UltimoSucesso = DateTime.UtcNow;
-            existente.ItensProcessados = request.ItensProcessados;
             existente.CicloEsperadoSegundos = request.CicloEsperadoSegundos;
-            existente.TipoEntidade = request.TipoEntidade;
-
+            
             await _context.SaveChangesAsync();
             return ToResponse(existente);
         }
@@ -57,23 +54,20 @@ namespace Citel.Conecta.Api.Services
         {
             var status = CalcularStatus(h);
             return new HeartbeatResponse(
-                h.Id, h.NomeWorkflow, h.TipoEntidade,
+                h.Id, h.NomeWorkflow,
                 h.UltimaExecucao, h.UltimoSucesso,
-                h.ItensProcessados, h.CicloEsperadoSegundos,
+                h.CicloEsperadoSegundos,
                 status);
         }
 
         public static string CalcularStatus(Heartbeat h)
         {
             if (h.UltimaExecucao == default)
-                return "FALHA";
+                return "ATRASADO";
 
             var segundosDecorridos = (DateTime.UtcNow - h.UltimaExecucao).TotalSeconds;
 
             if (segundosDecorridos > h.CicloEsperadoSegundos * 2.0)
-                return "FALHA";
-
-            if (segundosDecorridos > h.CicloEsperadoSegundos * 1.5)
                 return "ATRASADO";
 
             return "OK";

@@ -1,4 +1,4 @@
-namespace Citel.Conecta.Api.Dtos
+﻿namespace Citel.Conecta.Api.Dtos
 {
     public record TabelaPrecoMonitoramentoResponse(
         long Id,
@@ -6,9 +6,8 @@ namespace Citel.Conecta.Api.Dtos
         string Plataforma,
         string? Erro,
         DateTime DataRegistro,
-        string CodigoEntidade,
+        string CodigoExterno,
         string? CodigoInterno,
-        string NomeWorkflow,
-        string TipoEntidade
-    ) : MonitoramentoResponseBase(Id, NomeCliente, Plataforma, Erro, DataRegistro, CodigoEntidade, CodigoInterno, NomeWorkflow, TipoEntidade);
+        string NomeWorkflow
+    ) : MonitoramentoResponseBase(Id, NomeCliente, Plataforma, Erro, DataRegistro, CodigoExterno, CodigoInterno, NomeWorkflow);
 }

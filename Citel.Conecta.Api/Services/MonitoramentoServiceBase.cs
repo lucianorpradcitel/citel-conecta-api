@@ -1,4 +1,4 @@
-using Citel.Conecta.Api.Data;
+﻿using Citel.Conecta.Api.Data;
 using Citel.Conecta.Api.Dtos;
 using Citel.Conecta.Api.Models;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +27,7 @@ namespace Citel.Conecta.Api.Services
             var existente = await _dbSet.FirstOrDefaultAsync(e =>
                 e.NomeCliente == request.NomeCliente &&
                 e.Plataforma == request.Plataforma &&
-                e.CodigoEntidade == request.CodigoEntidade &&
+                e.CodigoExterno == request.CodigoExterno &&
                 e.CodigoInterno == request.CodigoInterno);
 
             if (existente is null)
@@ -38,10 +38,9 @@ namespace Citel.Conecta.Api.Services
                     Plataforma = request.Plataforma,
                     Erro = request.Erro,
                     DataRegistro = DateTime.UtcNow,
-                    CodigoEntidade = request.CodigoEntidade,
+                    CodigoExterno = request.CodigoExterno,
                     CodigoInterno = request.CodigoInterno,
-                    NomeWorkflow = request.NomeWorkflow,
-                    TipoEntidade = request.TipoEntidade
+                    NomeWorkflow = request.NomeWorkflow
                 };
 
                 _dbSet.Add(entidade);
@@ -53,7 +52,6 @@ namespace Citel.Conecta.Api.Services
             existente.Erro = request.Erro;
             existente.DataRegistro = DateTime.UtcNow;
             existente.NomeWorkflow = request.NomeWorkflow;
-            existente.TipoEntidade = request.TipoEntidade;
             await _context.SaveChangesAsync();
             return ToResponse(existente);
         }
@@ -72,7 +70,7 @@ namespace Citel.Conecta.Api.Services
             string? plataforma = null,
             string? nomeCliente = null,
             string? nomeWorkflow = null,
-            string? codigoEntidade = null,
+            string? codigoExterno = null,
             DateTime? dataInicio = null,
             DateTime? dataFim = null,
             int pagina = 1,
@@ -89,8 +87,8 @@ namespace Citel.Conecta.Api.Services
             if (!string.IsNullOrEmpty(nomeWorkflow))
                 query = query.Where(e => e.NomeWorkflow == nomeWorkflow);
 
-            if (!string.IsNullOrEmpty(codigoEntidade))
-                query = query.Where(e => e.CodigoEntidade == codigoEntidade);
+            if (!string.IsNullOrEmpty(codigoExterno))
+                query = query.Where(e => e.CodigoExterno == codigoExterno);
 
             if (dataInicio.HasValue)
                 query = query.Where(e => e.DataRegistro >= dataInicio.Value);

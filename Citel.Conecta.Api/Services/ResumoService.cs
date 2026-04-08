@@ -35,16 +35,10 @@ namespace Citel.Conecta.Api.Services
                 await ContarErros("tributacoes", "TRIBUTACAO", _context.TributacoesMonitoramento),
             };
 
-            var heartbeats = await _context.Heartbeats.ToListAsync();
-            var heartbeatPorTipo = heartbeats.ToDictionary(h => h.TipoEntidade, h => h);
-
             var porEntidade = entidades.Select(e =>
             {
-                heartbeatPorTipo.TryGetValue(e.tipoEntidade, out var hb);
-                var ultimoSucesso = hb?.UltimoSucesso;
-                var hbStatus = hb is null ? "FALHA" : HeartbeatService.CalcularStatus(hb);
-                var status = CalcularCorStatus(e.erros, hbStatus);
-                return new EntidadeResumo(e.nome, e.erros, ultimoSucesso, status);
+                var status = CalcularCorStatus(e.erros, "OK");
+                return new EntidadeResumo(e.nome, e.erros, null, status);
             }).ToList();
 
             var totalErros = entidades.Sum(e => e.erros);

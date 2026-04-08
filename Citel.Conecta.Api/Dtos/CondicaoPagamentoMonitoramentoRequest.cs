@@ -1,12 +1,11 @@
-namespace Citel.Conecta.Api.Dtos
+﻿namespace Citel.Conecta.Api.Dtos
 {
     public record CondicaoPagamentoMonitoramentoRequest(
         string NomeCliente,
         string Plataforma,
         string? Erro,
-        string CodigoEntidade,
+        string CodigoExterno,
         string? CodigoInterno,
-        string NomeWorkflow,
-        string TipoEntidade
-    ) : MonitoramentoRequestBase(NomeCliente, Plataforma, Erro, CodigoEntidade, CodigoInterno, NomeWorkflow, TipoEntidade);
+        string NomeWorkflow
+    ) : MonitoramentoRequestBase(NomeCliente, Plataforma, Erro, CodigoExterno, CodigoInterno, NomeWorkflow);
 }
