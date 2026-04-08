@@ -6,7 +6,8 @@ services:
     container_name: watch-citel-api
     restart: unless-stopped
     networks:
-      - network_traefik
+      network_traefik:
+        ipv4_address: 172.20.0.89
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ASPNETCORE_URLS: http://+:8080
